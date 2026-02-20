@@ -1,0 +1,806 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #090a0f;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* MAIN CONTAINER */
+.birthday-container {
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top left, #1b2735, #090a0f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 1.2s ease;
+  z-index: 1;
+}
+
+.birthday-container.opened {
+  background: radial-gradient(circle at top left, #243b55, #141e30);
+}
+
+/* MOON */
+.moon-container {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  width: 120px;  /* Fixed size */
+  height: 120px; /* Fixed size */
+  z-index: 999;
+  pointer-events: none; /* So it doesn't block clicks on your 'Click Me' heart */
+}
+
+.moon {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* Essential for the circle shape */
+  position: relative;
+  overflow: hidden;   /* Keeps the texture inside the circle */
+  background: #111;   /* Base color */
+  
+  /* Shading that stays INSIDE the circle */
+  box-shadow: 
+    inset -15px 10px 30px 5px rgba(240, 117, 195, 0.9), 
+    inset 10px -10px 30px rgba(238, 236, 236, 0.1),
+    0 0 20px rgba(233, 12, 12, 0.1); 
+}
+
+.texture {
+  width: 200%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('https://raw.githubusercontent.com/f-prime/moon-map/main/moon_map.jpg');
+  background-size: cover;
+  background-repeat: repeat-x;
+  animation: rotateMoon 30s linear infinite;
+  opacity: 0.6;
+}
+.moon-glow {
+
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 50px 10px rgba(255, 255, 255, 0.15);
+  z-index: -1;
+}
+
+@keyframes rotateMoon {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* HEART */
+.heart-wrapper {
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.heart {
+  font-size: 70px;
+  animation: pulse 1.6s infinite;
+}
+
+.click-text {
+  color: white;
+  opacity: 0.8;
+  margin-top: 10px;
+}
+
+/* MESSAGE */
+.message {
+  text-align: right;
+  color: white;
+  animation: reveal 1.2s ease forwards;
+  z-index: 2;
+}
+
+.message h1 {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.message p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+/* ANIMATIONS */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .message h1 {
+    font-size: 30px;
+  }
+}
+
+/* LETTER CARD */
+.letter-card {
+  position: absolute;
+  bottom: 40px;
+  max-width: 700px;
+  width: 90%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+  color: white;
+  animation: fadeUp 1.2s ease forwards;
+  z-index: 3;
+}
+
+.letter-card pre {
+  white-space: pre-wrap;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Letter animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .letter-card {
+    font-size: 14px;
+    padding: 20px;
+  }
+}
+/* Ambient Background Layer */
+.ambient-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+  overflow: hidden;
+  z-index: -1;
+}
+
+/* Layer 1: Small, distant stars */
+/* The Main Star Container */
+.stars {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  /* LAYER 1: 50+ Tiny distant stars */
+  box-shadow: 
+    14vw 12vh #fff, 25vw 50vh #fff, 35vw 35vh #fff, 45vw 80vh #fff, 55vw 15vh #fff, 65vw 55vh #fff, 75vw 10vh #fff, 85vw 90vh #fff, 95vw 40vh #fff, 5vw 70vh #fff,
+    18vw 88vh #fff, 28vw 12vh #fff, 38vw 60vh #fff, 48vw 25vh #fff, 58vw 75vh #fff, 68vw 5vh #fff, 78vw 45vh #fff, 88vw 30vh #fff, 98vw 80vh #fff, 8vw 20vh #fff,
+    12vw 5vh #fff, 22vw 95vh #fff, 32vw 45vh #fff, 42vw 15vh #fff, 52vw 65vh #fff, 62vw 35vh #fff, 72vw 85vh #fff, 82vw 25vh #fff, 92vw 60vh #fff, 2vw 40vh #fff,
+    10vw 30vh #fff, 20vw 10vh #fff, 30vw 90vh #fff, 40vw 50vh #fff, 50vw 20vh #fff, 60vw 80vh #fff, 70vw 40vh #fff, 80vw 60vh #fff, 90vw 10vh #fff, 99vw 99vh #fff,
+    15vw 15vh #fff, 25vw 25vh #fff, 35vw 35vh #fff, 45vw 45vh #fff, 55vw 55vh #fff, 65vw 65vh #fff, 75vw 75vh #fff, 85vw 85vh #fff, 95vw 95vh #fff, 5vw 5vh #fff;
+  animation: fly 100s linear infinite;
+}
+
+/* LAYER 2: Medium Stars (Using ::after) */
+.stars::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 
+    15vw 25vh #fff, 35vw 45vh #fff, 55vw 65vh #fff, 75vw 85vh #fff, 95vw 15vh #fff,
+    10vw 80vh #fff, 30vw 60vh #fff, 50vw 40vh #fff, 70vw 20vh #fff, 90vw 5vh #fff,
+    5vw 55vh #5df, 25vw 75vh #fd5, 45vw 95vh #f5d, 65vw 15vh #5df, 85vw 35vh #fd5;
+  animation: fly 60s linear infinite;
+}
+
+/* LAYER 3: Bright Sparkles (Using ::before) */
+.stars::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: 
+    20vw 20vh 1px #fff, 40vw 40vh 1px #fff, 60vw 60vh 1px #fff, 80vw 80vh 1px #fff,
+    10vw 90vh 1px #fff, 30vw 70vh 1px #fff, 50vw 50vh 1px #fff, 70vw 30vh 1px #fff, 90vw 10vh 1px #fff;
+  animation: fly 30s linear infinite;
+}
+
+/* The Nebula Glow - Updated for more intensity */
+.nebula {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150vw;
+  height: 150vh;
+  background: radial-gradient(circle, rgba(98, 0, 255, 0.15) 0%, rgba(255, 0, 150, 0.05) 40%, transparent 70%);
+  filter: blur(100px);
+  z-index: -1;
+}
+
+@keyframes fly {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100vh); }
+}
+
+
+/* Floating Hearts & Sparkles */
+/* Force the floating elements to be visible */
+.floating-elements span {
+  position: absolute;
+  bottom: -100px;
+  font-size: 20px;
+  animation: floatUp 12s linear infinite;
+  opacity: 0;
+}
+
+/* Positioning 10 elements across the screen */
+.floating-elements span:nth-child(1) { left: 5%;  animation-delay: 0s; }
+.floating-elements span:nth-child(2) { left: 15%; animation-delay: 4s; }
+.floating-elements span:nth-child(3) { left: 25%; animation-delay: 2s; }
+.floating-elements span:nth-child(4) { left: 35%; animation-delay: 8s; }
+.floating-elements span:nth-child(5) { left: 45%; animation-delay: 5s; }
+.floating-elements span:nth-child(6) { left: 55%; animation-delay: 1s; }
+.floating-elements span:nth-child(7) { left: 65%; animation-delay: 9s; }
+.floating-elements span:nth-child(8) { left: 75%; animation-delay: 3s; }
+.floating-elements span:nth-child(9) { left: 85%; animation-delay: 7s; }
+.floating-elements span:nth-child(10){ left: 95%; animation-delay: 6s; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
+}
+/* Container for the entire counter section */
+/* Container for the entire counter */
+/* Force the container to the front and center */
+.sheetal-counter-container {
+  position: relative;
+  z-index: 99;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  max-width: 90%;
+}
+
+.sheetal-counter-title {
+  color: #ffffff !important; /* Force white */
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.sheetal-counter-grid {
+  display: flex;
+  justify-content: right;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.sheetal-time-card {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 15px;
+  min-width: 85px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Force the numbers to be Bright and Glowing */
+.sheetal-time-val {
+  display: block;
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #ffffff !important; /* Force white */
+  line-height: 1;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #ff00de, 
+    0 0 20px #ff00de,
+    0 0 30px #ff00de;
+}
+
+.sheetal-time-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #a29bfe !important; /* Force lavender color */
+  margin-top: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* The Pulse Effect for Seconds */
+.sheetal-pulse .sheetal-time-val {
+  animation: neonBeat 1s ease-in-out infinite alternate;
+}
+
+@keyframes neonBeat {
+  from {
+    transform: scale(1);
+    text-shadow: 0 0 10px #ff00de, 0 0 20px #ff00de;
+  }
+  to {
+    transform: scale(1.05);
+    text-shadow: 0 0 20px #ff00de, 0 0 40px #ff00de, 0 0 60px #ff00de;
+  }
+}
+/* Container: Frosted Glass Effect */
+.galaxy-counter-container {
+  position: relative;
+  z-index: 100;
+  margin: 10px auto;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  max-width: 300px;
+  animation: slideUpFade 1s ease-out;
+}
+
+.galaxy-counter-title {
+  color: #ffffff !important;
+  font-size: 1rem;
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px #ff00de, 0 0 20px #ff00de;
+}
+
+.galaxy-counter-grid {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  perspective: 1000px; /* Essential for the 3D flip */
+}
+
+/* Individual Cards */
+.galaxy-card {
+  background: rgba(102, 15, 107, 0.5);
+  padding: px5;
+  border-radius: 5px;
+  min-width: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.galaxy-card:hover {
+  transform: translateY(-10px) rotateX(10deg);
+  border-color: #00d2ff;
+}
+
+/* Glowing Numbers & Flip Animation */
+.galaxy-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff !important;
+  line-height: 1;
+  text-shadow: 
+    0 0 10px #fff,
+    0 0 20px #00d2ff, 
+    0 0 40px #00d2ff;
+  animation: flipCard 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.galaxy-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #a29bfe !important;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Heartbeat for the seconds card */
+.pulse-card .galaxy-number {
+  color: #ff00de !important;
+  text-shadow: 0 0 20px #ff00de, 0 0 40px #ff00de;
+  animation: flipCard 0.6s ease-out, heartbeat 1s infinite alternate;
+}
+
+/* ANIMATIONS */
+@keyframes flipCard {
+  0% { transform: rotateX(-90deg); opacity: 0; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+@keyframes heartbeat {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Animation for the content when opened */
+.main-content-fade-in {
+  animation: crazyReveal 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@keyframes crazyReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(100px);
+    filter: blur(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Ensure the counter doesn't overlap the moon */
+.galaxy-counter-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* Center the Heart and Texts */
+.heart-interaction-zone {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.heart-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 100;
+}
+
+.heart-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.heart {
+  font-size: 50px;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.heart-wrapper:active .heart {
+  transform: scale(0.8);
+}
+
+/* The Crazy Charge Ring */
+.charge-ring {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  transform: rotate(-90deg);
+}
+
+.charge-ring circle {
+  fill: none;
+  stroke: #00d2ff;
+  stroke-width: 4;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283; /* Hidden by default */
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.heart-wrapper.charging .charge-ring circle {
+  animation: fillRing 1.5s linear forwards;
+  filter: drop-shadow(0 0 8px #00d2ff);
+}
+
+@keyframes fillRing {
+  from { stroke-dashoffset: 283; }
+  to { stroke-dashoffset: 0; }
+}
+
+.click-text {
+  margin-top: 15px;
+  color: white;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #ff00de;
+}
+.hint-text {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* Secret Message Styles */
+.easter-egg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.easter-egg-content {
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 20px;
+  border: 2px solid #00d2ff;
+  text-align: center;
+  box-shadow: 0 0 30px #00d2ff;
+  max-width: 80%;
+}
+
+.close-egg {
+  margin-top: 20px;
+  padding: 8px 20px;
+  background: #ff00de;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.hold-hint {
+  color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-top: 10px;
+  letter-spacing: 1px;
+  animation: softGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes softGlow {
+  from {
+    text-shadow: 0 0 5px rgba(0, 210, 255, 0.2);
+    opacity: 0.5;
+  }
+  to {
+    text-shadow: 0 0 15px rgba(0, 210, 255, 0.6);
+    opacity: 0.9;
+  }
+}
+
+/* Ensure the charge ring is big enough for the heart */
+.charge-ring {
+  width: 120px;
+  height: 120px;
+}
+/* --- BASE POLAROID (Small Size) --- */
+.bg-polaroid {
+  position: absolute;
+  background: #fff;
+  padding: 5px 5px 15px 5px; /* Thinner white frame */
+  width: 70px;               /* Small width for images */
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  animation: floatSmall 4s ease-in-out infinite alternate;
+  transition: transform 0.3s ease;
+}
+
+.bg-polaroid img {
+  width: 120%;
+  height: 90px;             /* Small fixed height */
+  object-fit: cover;
+  display: block;
+}
+
+/* --- DESKTOP POSITIONING --- */
+.p1 { 
+  top: -140px; 
+  left: 700px; 
+  transform: rotate(-12deg); 
+}
+
+.p2 { 
+  bottom: -140px; 
+  right: 700px; 
+  transform: rotate(10deg); 
+}
+
+/* --- MOBILE FIX (The "No-Disappear" Code) --- */
+@media (max-width: 600px) {
+  .bg-polaroid {
+    width: 55px;            /* Even smaller on mobile */
+    padding: 3px 3px 10px 3px;
+  }
+
+  .bg-polaroid img {
+    height: 50px;
+  }
+
+  /* We move the images INWARD so they don't hide off-screen */
+  .p1 { 
+    left: -10px;           /* Hugs the counter corner */
+    top: -25px;
+  }
+
+  .p2 { 
+    right: -10px;          /* Hugs the counter corner */
+    bottom: -25px;
+  }
+
+  /* Ensures the center container has enough room */
+  .counter-memory-layout {
+    padding: 30px;
+    margin: 0 auto;
+  }
+}
+
+/* --- THE RIBBON (Scaled Down) --- */
+.bg-polaroid .ribbon {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 35px;
+  height: 12px;
+  background: rgba(255, 0, 222, 0.7);
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+}
+
+@keyframes floatSmall {
+  from { transform: translateY(0) rotate(inherit); }
+  to { transform: translateY(-8px) rotate(inherit); }
+}
+
+/* Hover effect remains "Crazy" but scaled for the small size */
+
+  .secret-star {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  cursor: crosshair;
+  z-index: 9999;
+  opacity: 0.3; /* Hidden but visible if you look closely */
+  transition: opacity 0.5s;
+}
+
+.secret-star:hover {
+  opacity: 1;
+}
+
+.star-core {
+  font-size: 25px;
+  text-shadow: 0 0 10px #fff, 0 0 20px #00d2ff;
+  animation: rotate 2s linear infinite;
+}
+
+.star-loader circle {
+  fill: none;
+  stroke: #ff00de;
+  stroke-width: 2;
+  stroke-dasharray: 113;
+  transition: stroke-dashoffset 0.1s linear;
+}
+/* Darken the background for Lullaby Mode */
+.birthday-container.lullaby-active {
+  background: radial-gradient(circle at center, #05070a 0%, #000000 100%) !important;
+  transition: background 2s ease;
+}
+
+/* Make the Nebula fade out so it's not distracting */
+.lullaby-active .nebula {
+  opacity: 0.1;
+  filter: blur(150px);
+  transition: opacity 3s ease;
+}
+
+/* Make the Stars pop and glow like crazy */
+.lullaby-active .stars, 
+.lullaby-active .stars::after, 
+.lullaby-active .stars::before {
+  box-shadow: 
+    14vw 12vh 2px #fff, 25vw 50vh 3px #fff, 
+    35vw 35vh 2px #fff, 45vw 80vh 4px #fff; /* Increased blur on box shadows */
+  animation-duration: 150s; /* Slow them down for a "calm" feel */
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+/* Lullaby Hint Text */
+.lullaby-hint {
+  position: absolute;
+  right: 130px;
+  top: 45px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+  font-style: italic;
+  white-space: nowrap;
+  animation: pulseIn 2s infinite alternate;
+}
+
+/* The Secret Polaroids Glow in the Dark */
+.lullaby-active .bg-polaroid {
+  border: 1px solid rgba(0, 210, 255, 0.3);
+  box-shadow: 0 0 30px rgba(0, 210, 255, 0.2);
+  filter: sepia(0.2) contrast(1.1); /* Give photos a warm, soft look */
+}
+
+@keyframes pulseIn {
+  from { opacity: 0.2; transform: translateX(5px); }
+  to { opacity: 0.7; transform: translateX(0); }
+}
+
+/* ===== MOBILE VIEW FIX ===== */
+@media (max-width: 768px) {
+  .photo-layer {
+    height: auto;
+    padding: 60px 0;
+  }
+
+  .floating-img {
+    position: relative;
+    width: 70%;
+    max-width: 260px;
+    margin: 20px auto;
+    display: block;
+  }
+
+  .img-1,
+  .img-2 {
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+  }
+}
